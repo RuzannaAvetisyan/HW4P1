@@ -1,5 +1,6 @@
 package ruzanna.game.myapplication
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,8 +25,16 @@ class MainActivity : AppCompatActivity() {
         pass.setOnClickListener{
             val intent = Intent(this, NextActivity::class.java)
             intent.putExtra("num", number.text)
-            startActivity(intent)
-            finish()
+            startActivityForResult(intent, 1000)
+
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val extras = data?.extras
+        val number = findViewById<TextView>(R.id.number)
+        if(extras != null){
+            number.text = extras.get("num") as String
         }
     }
 }
@@ -48,8 +57,9 @@ class NextActivity : AppCompatActivity() {
         back.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("num", number.text)
-            startActivity(intent)
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
     }
+
 }

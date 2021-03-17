@@ -61,5 +61,4 @@ class NextActivity : AppCompatActivity() {
             finish()
         }
     }
-
 }
